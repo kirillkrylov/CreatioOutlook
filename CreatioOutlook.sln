@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatioOutlook", "CreatioOutlook\CreatioOutlook.csproj", "{69DCC0A1-D5E0-43E9-B1A7-EC128189D7B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatioDataService", "CreatioDataService\CreatioDataService.csproj", "{20045F1C-7812-46D0-AF92-031B3648974F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69DCC0A1-D5E0-43E9-B1A7-EC128189D7B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69DCC0A1-D5E0-43E9-B1A7-EC128189D7B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69DCC0A1-D5E0-43E9-B1A7-EC128189D7B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69DCC0A1-D5E0-43E9-B1A7-EC128189D7B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20045F1C-7812-46D0-AF92-031B3648974F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20045F1C-7812-46D0-AF92-031B3648974F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20045F1C-7812-46D0-AF92-031B3648974F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20045F1C-7812-46D0-AF92-031B3648974F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EE5089C-1F38-45E7-9151-FF3D96B5FA9F}
+	EndGlobalSection
+EndGlobal
