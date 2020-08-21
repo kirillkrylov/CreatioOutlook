@@ -33,12 +33,6 @@ namespace CreatioOutlook
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-            btnLogin_Click(sender, null);
-        }
-
-        private void btnLogin_Click(object sender, RibbonControlEventArgs e)
-        {
-
             creatio = new Creatio(new Uri(baseUrl), userName, userPassword);
             AuthResponseDTO loginResponse = null;
             Task.Run(async () =>
@@ -49,9 +43,35 @@ namespace CreatioOutlook
             if (loginResponse.Code == 0)
             {
                 //MessageBox.Show("Login Success !");
+                btnCurrentUser.Enabled = true;
+                btnLogin.Enabled = false;
+
+                Task.Run(async () =>
+                {
+                    CurrentUserContact = await creatio.GetCurrentUserContact();
+                    btnCurrentUser.Enabled = false;
+                    btnCreateLead.Enabled = true;
+                }).Wait();
+            }
+        }
+
+        private void btnLogin_Click(object sender, RibbonControlEventArgs e)
+        {
+
+            AuthResponseDTO loginResponse = null;
+            Task.Run(async () =>
+            {
+                loginResponse = await creatio.Login();
+            }).Wait();
+
+            if (loginResponse.Code == 0)
+            {
+                //MessageBox.Show("Login Success !");
+                btnCurrentUser.Enabled = true;
+                
             }
 
-            btnCurrentUser_Click(sender, null);
+            //btnCurrentUser_Click(sender, null);
 
         }
 
@@ -61,6 +81,7 @@ namespace CreatioOutlook
             {
                 CurrentUserContact = await creatio.GetCurrentUserContact();
                 //MessageBox.Show($"You are: {CurrentUserContact?.Name} Your Email Is: {CurrentUserContact?.Email}");
+                btnCreateLead.Enabled = true;
             }).Wait();
 
         }
@@ -68,6 +89,9 @@ namespace CreatioOutlook
         private void btnCreateLead_Click(object sender, RibbonControlEventArgs e)
         {
             var m = e.Control.Context as Inspector;
+
+            
+
             if (m == null) return;
             var mailitem = m.CurrentItem as MailItem;
 

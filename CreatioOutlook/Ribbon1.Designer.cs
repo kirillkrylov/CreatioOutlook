@@ -60,18 +60,21 @@
             // 
             // btnLogin
             // 
+            this.btnLogin.Description = "Login to Creatio";
             this.btnLogin.Label = "Log In";
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLogin_Click);
             // 
             // btnCurrentUser
             // 
+            this.btnCurrentUser.Enabled = false;
             this.btnCurrentUser.Label = "Get Current User";
             this.btnCurrentUser.Name = "btnCurrentUser";
             this.btnCurrentUser.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCurrentUser_Click);
             // 
             // btnCreateLead
             // 
+            this.btnCreateLead.Enabled = false;
             this.btnCreateLead.Label = "Create Lead";
             this.btnCreateLead.Name = "btnCreateLead";
             this.btnCreateLead.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCreateLead_Click);
