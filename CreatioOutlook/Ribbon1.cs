@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -15,6 +16,13 @@ namespace CreatioOutlook
 {
     public partial class Ribbon1
     {
+
+        /***         
+        const string baseUrl = "https://077275-crm-bundle.creatio.com";
+        const string userName = "APetrunenko";
+        const string userPassword = "lulu2020";
+        */
+
         const string baseUrl = "http://k_krylov_nb:7020";
         const string userName = "Supervisor";
         const string userPassword = "Supervisor";
@@ -25,6 +33,7 @@ namespace CreatioOutlook
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
+            btnLogin_Click(sender, null);
         }
 
         private void btnLogin_Click(object sender, RibbonControlEventArgs e)
@@ -39,8 +48,11 @@ namespace CreatioOutlook
 
             if (loginResponse.Code == 0)
             {
-                MessageBox.Show("Login Success !");
+                //MessageBox.Show("Login Success !");
             }
+
+            btnCurrentUser_Click(sender, null);
+
         }
 
         private void btnCurrentUser_Click(object sender, RibbonControlEventArgs e)
@@ -48,7 +60,7 @@ namespace CreatioOutlook
             Task.Run(async () =>
             {
                 CurrentUserContact = await creatio.GetCurrentUserContact();
-                MessageBox.Show($"You are: {CurrentUserContact?.Name} Your Email Is: {CurrentUserContact?.Email}");
+                //MessageBox.Show($"You are: {CurrentUserContact?.Name} Your Email Is: {CurrentUserContact?.Email}");
             }).Wait();
 
         }
@@ -91,25 +103,26 @@ namespace CreatioOutlook
 
                 }).Wait();
 
-
-
                 if (mailitem.Attachments != null && mailitem.Attachments?.Count > 0)
                 {
+
                     foreach (Attachment attachment in mailitem.Attachments)
                     {
                         string filename = attachment.FileName;
                         const string PR_ATTACH_DATA_BIN = "http://schemas.microsoft.com/mapi/proptag/0x37010102";
                         byte[] attachmentData = attachment.PropertyAccessor.GetProperty(PR_ATTACH_DATA_BIN);
 
-                        Task.Run(async () =>
+                        if (filename.EndsWith(".pdf") || filename.EndsWith(".xls") || filename.EndsWith(".xlsx") || filename.EndsWith(".doc") || filename.EndsWith(".docx")
+                            || filename.EndsWith(".pptx") || filename.EndsWith(".ppt") || filename.EndsWith(".pdf"))
                         {
-                            await creatio.UploadFileAsync(attachmentData, "application/pdf", filename, "Lead", id.ToString(), "FileLead", "Data");
-                        }).Wait();
-                        
+                            Task.Run(async () =>
+                            {
+                                string mimeType = creatio.GetMimeType(filename);
+                                await creatio.UploadFileAsync(attachmentData, mimeType, filename, "Lead", id.ToString(), "FileLead", "Data");
+                            }).Wait();
+                        }
                     }
                 }
-
-
 
                 DialogResult dialogResult = MessageBox.Show("Success", "Would you like to open this lead now", MessageBoxButtons.YesNo);
                 if(dialogResult == DialogResult.Yes)
